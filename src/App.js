@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import { AuthProvider, useAuth } from "./services/AuthContext";
-import './styles/App.css';
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
+import Dashboard from "./components/pages/Dashboard";
+import { AuthProvider, useAuth } from "./components/services/AuthContext";
+import '../src/App.css';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
