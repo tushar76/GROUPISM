@@ -1,36 +1,73 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 
 const AuthContext = createContext();
 
+const initialState = {
+  user: JSON.parse(localStorage.getItem("user")) || null,
+  role: localStorage.getItem("role") || null,
+  loading: false,
+  error: null,
+};
+
+function authReducer(state, action) {
+  switch (action.type) {
+    case "LOGIN_REQUEST":
+      return { ...state, loading: true, error: null };
+    case "LOGIN_SUCCESS":
+      return { ...state, user: action.payload.user, role: action.payload.role, loading: false };
+    case "LOGIN_FAILURE":
+      return { ...state, error: action.payload, loading: false };
+    case "LOGOUT":
+      return { ...state, user: null, role: null };
+    default:
+      return state;
+  }
+}
+
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
-  // Hardcoded credentials for testing
-  const validEmail = "tusharkumar8008@gmail.com";
-  const validPassword = "Tushar33";
+  // Predefined mock user for demonstration
+  const mockUsers = [
+    { email: "tusharkumar8008@gmail.com", password: "tushar33", role: "admin" },
+  ];
 
+  // Mock login function
   const login = (email, password) => {
-    if (email === validEmail && password === validPassword) {
-      setUser({ email });
-      alert("Login successful!");
+    dispatch({ type: "LOGIN_REQUEST" });
+    const user = mockUsers.find((u) => u.email === email && u.password === password);
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user.email));
+      localStorage.setItem("role", user.role);
+      dispatch({ type: "LOGIN_SUCCESS", payload: { user: user.email, role: user.role } });
     } else {
-      alert("Invalid email or password.");
+      dispatch({ type: "LOGIN_FAILURE", payload: "Invalid email or password" });
     }
   };
 
+  // Mock register function (allows adding new users locally)
   const register = (email, password) => {
-    // You can enhance this with a real registration process
-    setUser({ email });
-    alert("Registration successful!");
+    dispatch({ type: "LOGIN_REQUEST" });
+    const userExists = mockUsers.some((u) => u.email === email);
+    if (userExists) {
+      dispatch({ type: "LOGIN_FAILURE", payload: "User already exists" });
+    } else {
+      mockUsers.push({ email, password, role: "user" });
+      localStorage.setItem("user", JSON.stringify(email));
+      localStorage.setItem("role", "user");
+      dispatch({ type: "LOGIN_SUCCESS", payload: { user: email, role: "user" } });
+    }
   };
 
+  // Logout function
   const logout = () => {
-    setUser(null);
-    alert("Logged out successfully!");
+    localStorage.removeItem("user");
+    localStorage.removeItem("role");
+    dispatch({ type: "LOGOUT" });
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider value={{ ...state, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
