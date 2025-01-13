@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import TaskList from "../components/Tasks/TaskList";
-import TaskForm from "../components/Tasks/TaskForm";
+import TaskList from "../Tasks/TaskList";
+import TaskForm from "../Tasks/TaskForm";
 
 const Dashboard = () => {
   const [quote, setQuote] = useState("");
