@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
-function TaskList({ tasks  , setTasks}) {
-  const toggleComplete = (indexToRemove) => {
-    // tasks[index].completed = !tasks[index].completed;
-    setTasks((prevTasks) => prevTasks.filter((_, index) => index !== indexToRemove));
+function TaskList() {
+  const [tasks, setTasks] = useState([]);
+
+  const toggleComplete = (index) => {
+    const newTasks = [...tasks];
+    newTasks[index].completed = !newTasks[index].completed;
+    setTasks(newTasks);
   };
-  
+
   return (
     <ul>
       {tasks.map((task, index) => (
@@ -21,3 +24,4 @@ function TaskList({ tasks  , setTasks}) {
 }
 
 export default TaskList;
+
