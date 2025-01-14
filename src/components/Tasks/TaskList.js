@@ -1,11 +1,11 @@
 import React from "react";
 
-function TaskList({ tasks}) {
-  const toggleComplete = (index) => {
-    tasks[index].completed = !tasks[index].completed;
-    
+function TaskList({ tasks  , setTasks}) {
+  const toggleComplete = (indexToRemove) => {
+    // tasks[index].completed = !tasks[index].completed;
+    setTasks((prevTasks) => prevTasks.filter((_, index) => index !== indexToRemove));
   };
-
+  
   return (
     <ul>
       {tasks.map((task, index) => (

@@ -27,7 +27,8 @@ const Dashboard = () => {
 
       {/* Pass the handler function to TaskForm */}
       <TaskForm onAddTask={handleAddTask} />
-      <TaskList tasks={tasks}  />
+      <TaskList tasks={tasks} setTasks={setTasks} />
+      
     </div>
   );
 };
