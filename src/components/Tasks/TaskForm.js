@@ -7,7 +7,7 @@ function TaskForm({ onAddTask }) {
     e.preventDefault();
     if (taskName) {
       onAddTask(taskName);
-      setTaskName("");
+      
     }
   };
 
@@ -25,4 +25,3 @@ function TaskForm({ onAddTask }) {
 }
 
 export default TaskForm;
-

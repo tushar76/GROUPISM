@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
-function TaskList() {
-  const [tasks, setTasks] = useState([]);
-
+function TaskList({ tasks}) {
   const toggleComplete = (index) => {
-    const newTasks = [...tasks];
-    newTasks[index].completed = !newTasks[index].completed;
-    setTasks(newTasks);
+    tasks[index].completed = !tasks[index].completed;
+    
   };
 
   return (
@@ -24,4 +21,3 @@ function TaskList() {
 }
 
 export default TaskList;
-
