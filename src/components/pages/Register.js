@@ -2,6 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../services/AuthContext";
+import "../styles/App.css"
 
 const Register = () => {
   const { register } = useAuth();

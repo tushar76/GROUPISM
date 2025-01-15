@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../services/AuthContext";
+import "../styles/App.css"
 
 function LoginPage() {
   const { login, error } = useAuth();
