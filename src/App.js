@@ -5,7 +5,7 @@ import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import Dashboard from "./components/pages/Dashboard";
 import { AuthProvider, useAuth } from "./components/services/AuthContext";
-import '../src/App.css';
+import '../src/components/styles/App.css';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();

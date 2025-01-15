@@ -1,11 +1,12 @@
 import React from "react";
+import "../styles/App.css"
 
 function TaskList({ tasks  , setTasks}) {
   const toggleComplete = (indexToRemove) => {
     // tasks[index].completed = !tasks[index].completed;
     setTasks((prevTasks) => prevTasks.filter((_, index) => index !== indexToRemove));
   };
-  
+
   return (
     <ul>
       {tasks.map((task, index) => (
